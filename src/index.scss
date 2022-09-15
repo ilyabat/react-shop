@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import '_reset.scss';
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #e7f6ff;
+}
+
+.wrapper {
+  margin: 50px auto;
+  max-width: 1080px;
+  background: #FFFFFF;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04);
+  border-radius: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 43px 63px 44px 45px;
+  border-bottom: 1px solid #EAEAEA;
+
+
+  &__left {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin: 0 16px 0 0;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &__info {
+    h3 {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 24px;
+      text-transform: uppercase;
+
+      color: #000000;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+      color: #9D9D9D;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 18px;
+      height: 18px;
+    }
+
+    span {
+      margin: 0 30px 0 10px
+    }
+  }
+}
+
+.content {
+  padding: 45px 60px 75px 60px;
+
+  h1 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    color: #000000;
+    margin: 0 0 40px 0;
+  }
+}
+
+.card {
+  display: flex;
+  &__block{
+    border: 1px solid #F3F3F3;
+    border-radius: 40px;
+    padding: 22px 30px 32px 30px;
+    width: 210px;
+  }
+  &__block:not(:last-child){
+    margin: 0 40px 0 0;
+  }
+
+  &__text {
+    margin: 14px 0;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 17px;
+
+    color: #000000;
+  }
+
+  &__down {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__price {
+
+    p {
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 13px;
+      text-transform: uppercase;
+
+      color: #BDBDBD;
+    }
+
+    b {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 17px;
+      color: #000000;
+    }
+  }
+
+  &__img {
+    width: 133px;
+    height: 112px;
+  }
+
+  &__button-img {
+    height: 32px;
+    width: 32px;
+  }
+
+  &__btn {
+    cursor: pointer;
+  }
+}
