@@ -10,6 +10,7 @@ body {
 }
 
 .wrapper {
+  overflow: hidden;
   margin: 50px auto;
   max-width: 1080px;
   background: #FFFFFF;
@@ -56,6 +57,10 @@ body {
   &__right {
     display: flex;
     align-items: center;
+
+    li {
+      cursor: pointer;
+    }
 
     img {
       width: 18px;
@@ -169,12 +174,7 @@ body {
     height: 112px;
   }
 
-  &__button-img {
-    height: 32px;
-    width: 32px;
-  }
-
-  &__btn {
+  &__plus {
     cursor: pointer;
   }
 }
@@ -217,13 +217,15 @@ body {
     border: 1px solid #F3F3F3;
     border-radius: 20px;
     padding: 20px 20px 29px 20px;
-    margin: 0 0 20px 0;
+
   }
 
   &__items {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
     overflow: auto;
     flex: 1;
-    margin: 0 0 40px 0;
   }
 
   &__text {

@@ -1,24 +1,30 @@
+import React from "react";
 
-function Card(props) {
+function Card({ title, imageUrl, price, onFavorite, onPlus }) {
 
-    const onClickButton = () =>{
-        alert(props.title)
+    const [isAdded, setIsAdded] = React.useState(false)
+
+    const onClickPlus = () => {
+        onPlus(title, imageUrl, price)
+        setIsAdded(!isAdded)
     }
+
+
     return (
         <div className="card__block">
-            <div className="card__favorite">
+            <div className="card__favorite" onClick={onFavorite}>
                 <img src="/img/main/unlike.svg" alt="UnLike" />
             </div>
-            <img className="card__img" src={props.imageUrl} alt="Sneakers" />
-            <p className="card__text">{props.title}</p>
+            <img className="card__img" src={imageUrl} alt="Sneakers" />
+            <p className="card__text">{title}</p>
             <div className="card__down">
                 <div className="card__price">
                     <p>Ціна:</p>
-                    <b>{props.price} грн</b>
+                    <b>{price}грн</b>
                 </div>
-                <button className="card__btn" onClick={onClickButton}>
-                    <img className="card__button-img" src="/img/main/plus.svg" alt="Plus" />
-                </button>
+
+                <img onClick={onClickPlus} className="card__plus" src={isAdded ? "/img/main/plusOn.svg" : "/img/main/plus.svg"} alt="Plus" />
+
             </div>
         </div>
     );

@@ -1,4 +1,5 @@
-function Header() {
+function Header(props) {
+    
     return (
         <header className="header">
             <div className="header__left">
@@ -10,10 +11,11 @@ function Header() {
             </div>
 
             <ul className="header__right">
-                <li><img src="/img/header/cart.svg" alt="Cart" /><span>1205грн.</span></li>
+                <li onClick={props.onClickCart}><img src="/img/header/cart.svg" alt="Cart" /><span>1205грн.</span></li>
                 <li><img src="/img/header/user.svg" alt="User" /></li>
             </ul>
-        </header>);
+        </header>
+        );
 
 }
 

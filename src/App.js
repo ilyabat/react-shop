@@ -1,19 +1,35 @@
 import Card from './components/Card';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
+import React from 'react';
 
-const arr = [
-  { title: 'Чоловічі кросівки Nike Blazer Mid Suede', price: 12999, imageUrl: "/img/main/sneakers/01.jpg" },
-  { title: 'Чоловічі кросівки Nike Air Max 270', price: 15199, imageUrl: "/img/main/sneakers/02.jpg" },
-  { title: 'Чоловічі кросівки Nike Blazer Mid Suede', price: 10199, imageUrl: "/img/main/sneakers/03.jpg" },
-  { title: 'Кросівки Puma X Aka Boku Future Rider', price: 8199, imageUrl: "/img/main/sneakers/04.jpg" },
-];
+
 
 function App() {
+
+  const [items, setItems] = React.useState([])
+  const [cartItems, setCartItems] = React.useState([])
+
+  const [cartOpened, setCartOpened] = React.useState(false)
+
+  React.useEffect(() => {
+    fetch('https://6327800c5731f3db995a67d9.mockapi.io/items').then((res) => {
+      return res.json();
+    }).then((json) => {
+      setItems(json)
+    })
+  }, [])
+
+
+  const onAddToCart = (obj) => {
+    setCartItems([...cartItems, obj])
+
+  }
+
   return (
     <div className="wrapper">
-      <Drawer />
-      <Header />
+      {cartOpened ? <Drawer items={cartItems} onClose={() => setCartOpened(false)} /> : null}
+      <Header onClickCart={() => setCartOpened(true)} />
       <div className="content">
         <div className="content__block">
           <h1>Всі кросівки</h1>
@@ -25,18 +41,17 @@ function App() {
 
         <div className="card">
           {
-            arr.map((obj) => (
+            items.map((item) => (
               <Card
-                title={obj.title}
-                price={obj.price}
-                imageUrl={obj.imageUrl}
+                title={item.title}
+                price={item.price}
+                imageUrl={item.imageUrl}
+                onFavorite={() => console.log('Zak')}
+                onPlus={(obj) => onAddToCart(item)}
               />
             ))
           }
-
         </div>
-
-
       </div>
     </div>
   );
