@@ -1,48 +1,12 @@
+import Card from './components/Card';
+import Header from './components/Header';
+import Drawer from './components/Drawer';
+
 function App() {
   return (
     <div className="wrapper">
-      <div className="overlay">
-        <div className="drawer">
-          <div className="drawer__title">
-            Кошик
-          </div>
-          <div className="drawer__items">
-
-            <div className="drawer__item">
-              <img className="drawer__sneakers-img" src="/img/main/sneakers/01.jpg" alt="Sneakers" />
-              <div className="drawer__text">
-                <p>Чоловічі кросівки Nike Blazer Mid Suede</p>
-                <b>12 999грн.</b>
-              </div>
-              <img className="drawer__remove-img" src="/img/main/remove.svg" alt="Remove" />
-            </div>
-
-            <div className="drawer__item">
-              <img className="drawer__sneakers-img" src="/img/main/sneakers/01.jpg" alt="Sneakers" />
-              <div className="drawer__text">
-                <p>Чоловічі кросівки Nike Blazer Mid Suede</p>
-                <b>12 999грн.</b>
-              </div>
-              <img className="drawer__remove-img" src="/img/main/remove.svg" alt="Remove" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <header className="header">
-        <div className="header__left">
-          <img src="/img/header/logo.png" alt="Logo" />
-          <div className="header__info">
-            <h3>BOOST SNEAKERS</h3>
-            <p>Магазин найкращих кросівок</p>
-          </div>
-        </div>
-
-        <ul className="header__right">
-          <li><img src="/img/header/cart.svg" alt="Cart" /><span>1205грн.</span></li>
-          <li><img src="/img/header/user.svg" alt="User" /></li>
-        </ul>
-      </header>
+      <Drawer />
+      <Header />
       <div className="content">
         <div className="content__block">
           <h1>Всі кросівки</h1>
@@ -53,6 +17,12 @@ function App() {
         </div>
 
         <div className="card">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+
           <div className="card__block">
             <div className="card__favorite">
               <img src="/img/main/unlike.svg" alt="UnLike" />
