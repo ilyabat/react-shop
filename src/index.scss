@@ -9,9 +9,14 @@ body {
   background: #e7f6ff;
 }
 
+
 .wrapper {
+  margin: 30px 0 0 0;
+}
+
+.container {
+  margin: 0 auto;
   overflow: hidden;
-  margin: 50px auto;
   max-width: 1080px;
   background: #FFFFFF;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04);
@@ -57,9 +62,11 @@ body {
   &__right {
     display: flex;
     align-items: center;
-
-    li {
+    li{
       cursor: pointer;
+    }
+    li:not(:last-child) {
+      margin: 0 15px 0 0;
     }
 
     img {
@@ -68,7 +75,7 @@ body {
     }
 
     span {
-      margin: 0 30px 0 10px
+      margin: 0 0px 0 10px
     }
   }
 }
@@ -81,9 +88,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    h1 {
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 39px;
+      color: #000000;
+      max-width: 500px;
+    }
+  }
+
+  &__remove-img {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
   }
 
   &__search {
+    position: relative;
     display: flex;
     align-items: center;
     border: 1px solid #F3F3F3;
@@ -95,6 +119,7 @@ body {
     }
 
     input {
+      padding: 0 0 0 10px;
       font-weight: 400;
       font-size: 14px;
       line-height: 17px;
@@ -102,12 +127,7 @@ body {
     }
   }
 
-  h1 {
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 39px;
-    color: #000000;
-  }
+
 }
 
 .card {
@@ -183,6 +203,7 @@ body {
 // Drawer
 
 .drawer {
+  overflow: auto;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -192,6 +213,64 @@ body {
   background: #FFFFFF;
   box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
   padding: 30px;
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin: 200px 0 0 0;
+
+    h2 {
+      margin: 21px 0 0 0;
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 27px;
+      color: #000000;
+    }
+
+    p {
+      margin: 5px 0 40px 0;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      text-align: center;
+
+      color: #000000;
+
+      opacity: 0.4;
+    }
+  }
+
+  &__btn {
+    position: relative;
+    background: #9DD458;
+    border-radius: 18px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    width: 245px;
+    color: #FFFFFF;
+    padding: 18px;
+
+    img {
+      transition: transform 0.15s ease-in-out;
+
+      transform: rotate(180deg);
+      transition: transform 0.15s ease-in-out;
+      position: absolute;
+      left: 20px;
+      top: 21px;
+    }
+
+    &:hover {
+      img {
+        transform: translateX(5px);
+      }
+    }
+  }
 
   &__up {
     margin: 0 0 30px 0;
@@ -224,7 +303,6 @@ body {
     display: flex;
     flex-direction: column;
     row-gap: 20px;
-    overflow: auto;
     flex: 1;
   }
 
@@ -265,6 +343,7 @@ body {
   }
 
   &__down {
+    margin: 40px 0 0 0;
     div {
       flex: 1;
       height: 1px;

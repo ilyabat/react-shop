@@ -4,16 +4,21 @@ function Card({ title, imageUrl, price, onFavorite, onPlus }) {
 
     const [isAdded, setIsAdded] = React.useState(false)
 
+    const [isFavorite, setIsFavorite] = React.useState(false)
+
     const onClickPlus = () => {
-        onPlus(title, imageUrl, price)
+        onPlus({title, imageUrl, price})
         setIsAdded(!isAdded)
     }
-
+    const onClickFavorite = () =>{
+        onFavorite({title, imageUrl, price})
+        setIsFavorite(!isFavorite)
+    }
 
     return (
         <div className="card__block">
             <div className="card__favorite" onClick={onFavorite}>
-                <img src="/img/main/unlike.svg" alt="UnLike" />
+                <img onClick={onClickFavorite} src={isFavorite ? "/img/main/like.svg" : "/img/main/unlike.svg"} alt="UnLike" />
             </div>
             <img className="card__img" src={imageUrl} alt="Sneakers" />
             <p className="card__text">{title}</p>
