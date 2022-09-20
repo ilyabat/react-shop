@@ -1,8 +1,7 @@
-import Card from './components/Card';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
-import { Route } from 'react-router-dom';
-
+import { Route, Routes, Link } from 'react-router-dom';
+import Card from './components/Card';
 import React from 'react';
 import axios from 'axios';
 
@@ -25,6 +24,9 @@ function App() {
     axios.get('https://6327800c5731f3db995a67d9.mockapi.io/cart').then((res) => {
       setCartItems(res.data)
     });
+    axios.get('https://6327800c5731f3db995a67d9.mockapi.io/favorites').then((res) => {
+      setFavorites(res.data)
+    });
   }, []);
 
 
@@ -32,10 +34,21 @@ function App() {
     axios.post('https://6327800c5731f3db995a67d9.mockapi.io/cart', obj)
     setCartItems((prev) => [...prev, obj])
   }
-  const onAddToFavorite = (obj) => {
-    axios.post('https://6327800c5731f3db995a67d9.mockapi.io/favorites', obj)
-    setFavorites((prev) => [...prev, obj])
+
+
+  const onAddToFavorite = async (obj) => {
+
+    if (favorites.find(favObj => favObj.id === obj.id)) {
+      axios.delete(`https://6327800c5731f3db995a67d9.mockapi.io/favorites/${obj.id}`)
+
+    } else {
+      const { data } = await axios.post('https://6327800c5731f3db995a67d9.mockapi.io/favorites', obj)
+      setFavorites((prev) => [...prev, data])
+    }
+
   }
+
+
 
   const onRemoveItem = (id) => {
     axios.delete(`https://6327800c5731f3db995a67d9.mockapi.io/cart/${id}`)
@@ -52,34 +65,79 @@ function App() {
         {cartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} />}
         <Header onClickCart={() => setCartOpened(true)} />
 
-        {/* <Route path="/favorites" exact></Route>  */}
-        
-        <div className="content">
-          <div className="content__block">
-            <h1>{searchValue ? `Пошук: "${searchValue}"` : 'Всі кросівки'}</h1>
-            <div className="content__search">
-              <img src="/img/main/search.svg" alt="Search" />
-              {searchValue && <img onClick={() => setSearchValue('')} className="content__remove-img" src="/img/main/remove.svg" alt="Clear" />}
-              <input onChange={onChangeSearchInput} value={searchValue} type="text" placeholder="Пошук..." />
+        <Routes>
+          <Route
+            path="/"
+            exact
+            element={
+              <div className="content">
+                <div className="content__block">
+                  <h1>{searchValue ? `Пошук: "${searchValue}"` : 'Всі кросівки'}</h1>
+                  <div className="content__search">
+                    <img src="/img/main/search.svg" alt="Search" />
+                    {searchValue && <img onClick={() => setSearchValue('')} className="content__remove-img" src="/img/main/remove.svg" alt="Clear" />}
+                    <input onChange={onChangeSearchInput} value={searchValue} type="text" placeholder="Пошук..." />
 
-            </div>
-          </div>
+                  </div>
+                </div>
 
-          <div className="card">
-            {
-              items.filter(item => item.title.toLowerCase().includes(searchValue)).map((item, index) => (
-                <Card
-                  key={index}
-                  title={item.title}
-                  price={item.price}
-                  imageUrl={item.imageUrl}
-                  onFavorite={(obj) => onAddToFavorite(item)}
-                  onPlus={(obj) => onAddToCart(item)}
-                />
-              ))
+                <div className="card">
+                  {
+                    items.filter((item) => item.title.toLowerCase().includes(searchValue)).map((item, title) => (
+                      <Card
+                        key={title}
+                        onFavorite={(obj) => onAddToFavorite(item)}
+                        onPlus={(obj) => onAddToCart(item)}
+                        {...item}
+                      />
+                    ))
+                  }
+                </div>
+              </div>
             }
-          </div>
-        </div>
+          ></Route>
+          <Route
+            path="/favorites"
+            exact
+            element={
+              <div className="content">
+                {favorites.length > 0 ?
+                  <div>
+                    <div className="content__block">
+                      <h1>Мої улюблені товари</h1>
+                    </div>
+
+                    <div className="card">
+                      {
+                        favorites.map((item, index) => (
+                          <Card
+                            key={index}
+                            favorited={true}
+                            onFavorite={onAddToFavorite}
+                            {...item}
+                          />
+                        ))
+                      }
+                    </div>
+                  </div> : <div className="content__block-favoriteOFF">
+                    <img src="/img/favorite/sadSmile.png" alt="SadSmile" />
+                    <h1>Улюблених товарів нема</h1>
+                    <p>Ви нічого не добавили в улюблене</p>
+                    <Link to='/'>
+                      <button className="drawer__btn"><img src="/img/main/arrow.svg" alt="Arrow" />Повернутися назад</button>
+
+                    </Link>
+                  </div>
+                }
+
+
+
+
+              </div>
+
+            }
+          ></Route>
+        </Routes>
       </div>
     </div>
 
