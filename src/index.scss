@@ -298,7 +298,11 @@ body {
       }
     }
   }
-
+  &__main{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
   &__up {
     margin: 0 0 30px 0;
 
@@ -388,6 +392,10 @@ body {
     .greenBtn {
       position: relative;
 
+      &:disabled{
+        background-color: #bebebe;
+        cursor: default;
+      }
       &:hover {
         img {
           transform: translateX(5px);

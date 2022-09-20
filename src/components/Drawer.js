@@ -1,4 +1,34 @@
-function Drawer({ onClose, onRemove, items = [] }) {
+import React from "react";
+import Info from "./info";
+import axios from "axios";
+
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+function Drawer({ onClose, onRemove, items = [], setCartItems, cartItems }) {
+    const [orderId, setOrderId] = React.useState(null)
+
+    const [isOrder, setIsOrder] = React.useState(false)
+    const [isLoading, setIsLoading] = React.useState(false)
+
+    const onClickOrder = async () => {
+        setIsLoading(true)
+
+        const { data } = await axios.post('https://6327800c5731f3db995a67d9.mockapi.io/orders', { items: cartItems })
+
+
+        setOrderId(data.id)
+
+        setIsOrder(true)
+        setCartItems([]);
+        for (let index = 0; index < cartItems.length; index++) {
+            const item = cartItems[index];
+            axios.delete('https://6327800c5731f3db995a67d9.mockapi.io/cart/' + item.id)
+            delay(1000)
+        }
+        setIsLoading(false)
+    }
+
     return (
         <div className="overlay">
             <div className="drawer">
@@ -10,10 +40,10 @@ function Drawer({ onClose, onRemove, items = [] }) {
                 </div>
                 {
                     items.length > 0 ?
-                        <div>
+                        <div className="drawer__main">
                             <div className="drawer__items">
                                 {items.map((obj) => (
-                                    <div className="drawer__item">
+                                    <div key={obj.id} className="drawer__item">
                                         <img className="drawer__sneakers-img" src={obj.imageUrl} alt="Sneakers" />
                                         <div className="drawer__text">
                                             <p>{obj.title}</p>
@@ -36,14 +66,16 @@ function Drawer({ onClose, onRemove, items = [] }) {
                                         <b> 1000грн.</b>
                                     </li>
                                 </ul>
-                                <button className="greenBtn">Оформити замовлення <img src="/img/main/arrow.svg" alt="Arrow" /></button>
+                                <button disabled={isLoading} onClick={onClickOrder} className="greenBtn">Оформити замовлення <img src="/img/main/arrow.svg" alt="Arrow" /></button>
                             </div>
-                        </div> : <div className="drawer__box">
-                            <img src="/img/main/boxCart.png" alt="Box" />
-                            <h2>Кошик порожній</h2>
-                            <p>Додайте хоча б одну пару кросівок, щоб зробити замовлення.</p>
-                            <button onClick={onClose} className="drawer__btn"><img src="/img/main/arrow.svg" alt="Arrow" />Повернутися назад</button>
-                        </div>
+                        </div> :
+                        <Info
+                            title={isOrder ? "Замовлення оформлено!" : "Кошик порожній"}
+                            description={isOrder ? `Ваше замовлення #${orderId} скоро буде передано кур'єрській доставці` : "Додайте хоча б одну пару кросівок, щоб зробити замовлення."}
+                            image={isOrder ? "/img/main/offer.png" : "/img/main/boxCart.png"}
+                            onClose={onClose}
+                        />
+
                 }
 
 
