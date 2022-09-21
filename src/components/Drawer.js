@@ -34,7 +34,7 @@ function Drawer({ onClose, onRemove, items = [], setCartItems, cartItems }) {
                     <div className="drawer__title">
                         Кошик
                     </div>
-                    <img onClick={onClose} className="drawer__remove-img" src="/img/main/remove.svg" alt="Remove" />
+                    <img onClick={onClose} className="drawer__remove-img" src="img/remove.svg" alt="Remove" />
                 </div>
                 {
                     items.length > 0 ?
@@ -47,7 +47,7 @@ function Drawer({ onClose, onRemove, items = [], setCartItems, cartItems }) {
                                             <p>{obj.title}</p>
                                             <b>{obj.price} грн</b>
                                         </div>
-                                        <img onClick={() => onRemove(obj.id)} className="drawer__remove-img" src="img/main/remove.svg" alt="Remove" />
+                                        <img onClick={() => onRemove(obj.id)} className="drawer__remove-img" src="img/remove.svg" alt="Remove" />
                                     </div>
                                 ))}
                             </div>
@@ -64,13 +64,13 @@ function Drawer({ onClose, onRemove, items = [], setCartItems, cartItems }) {
                                         <b>{Math.round(totalPrice / 100 * 5)}грн.</b>
                                     </li>
                                 </ul>
-                                <button disabled={isLoading} onClick={onClickOrder} className="greenBtn">Оформити замовлення <img src="img/main/arrow.svg" alt="Arrow" /></button>
+                                <button disabled={isLoading} onClick={onClickOrder} className="greenBtn">Оформити замовлення <img src="img/arrow.svg" alt="Arrow" /></button>
                             </div>
                         </div> :
                         <Info
                             title={isOrder ? "Замовлення оформлено!" : "Кошик порожній"}
                             description={isOrder ? `Ваше замовлення #${orderId} скоро буде передано кур'єрській доставці` : "Додайте хоча б одну пару кросівок, щоб зробити замовлення."}
-                            image={isOrder ? "img/main/offer.png" : "img/main/boxCart.png"}
+                            image={isOrder ? "img/offer.png" : "img/boxCart.png"}
                             onClose={onClose}
                         />
 

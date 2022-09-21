@@ -107,15 +107,15 @@ function App() {
 
           <Routes>
             <Route
-              path="/"
+              path=""
               exact
               element={
                 <div className="content">
                   <div className="content__block">
                     <h1>{searchValue ? `Пошук: "${searchValue}"` : 'Всі кросівки'}</h1>
                     <div className="content__search">
-                      <img src="img/main/search.svg" alt="Search" />
-                      {searchValue && <img onClick={() => setSearchValue('')} className="content__remove-img" src="img/main/remove.svg" alt="Clear" />}
+                      <img src="img/search.svg" alt="Search" />
+                      {searchValue && <img onClick={() => setSearchValue('')} className="content__remove-img" src="img/remove.svg" alt="Clear" />}
                       <input onChange={onChangeSearchInput} value={searchValue} type="text" placeholder="Пошук..." />
                     </div>
                   </div>
@@ -130,7 +130,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/favorites"
+              path="favorites"
               exact
               element={
                 <div className="content">
@@ -154,11 +154,11 @@ function App() {
                         }
                       </div>
                     </div> : <div className="content__block-favoriteOFF">
-                      <img src="/img/favorite/sadSmile.png" alt="SadSmile" />
+                      <img src="img/favorite/sadSmile.png" alt="SadSmile" />
                       <h1>Улюблених товарів нема</h1>
                       <p>Ви нічого не добавили в улюблене</p>
-                      <Link to='/'>
-                        <button className="drawer__btn"><img src="/img/main/arrow.svg" alt="Arrow" />Повернутися назад</button>
+                      <Link to=''>
+                        <button className="drawer__btn"><img src="img/arrow.svg" alt="Arrow" />Повернутися назад</button>
                       </Link>
                     </div>
                   }
@@ -171,7 +171,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/orders"
+              path="orders"
               exact
               element={
                 <div className="content">
@@ -198,7 +198,7 @@ function App() {
                       <h1>У вас немає замовлень</h1>
                       <p>Оформіть замовлення</p>
                       <Link to='/'>
-                        <button className="drawer__btn"><img src="img/main/arrow.svg" alt="Arrow" />Повернутися назад</button>
+                        <button className="drawer__btn"><img src="img/arrow.svg" alt="Arrow" />Повернутися назад</button>
                       </Link>
                     </div>
                   }
