@@ -6,13 +6,15 @@ import React from 'react';
 import axios from 'axios';
 
 
-const AppContext = React.createContext({});
+export const AppContext = React.createContext({});
 
 function App() {
 
   const [items, setItems] = React.useState([])
   const [cartItems, setCartItems] = React.useState([])
   const [favorites, setFavorites] = React.useState([])
+  const [orders, setOrders] = React.useState([])
+
 
   const [searchValue, setSearchValue] = React.useState('')
 
@@ -20,6 +22,13 @@ function App() {
   const [cartOpened, setCartOpened] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(true)
 
+  React.useEffect(() => {
+    (async () => {
+      const { data } = await axios.get('https://6327800c5731f3db995a67d9.mockapi.io/orders')
+      setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], []))
+      setIsLoading(false)
+    })();
+  }, [])
 
 
   React.useEffect(() => {
@@ -71,6 +80,10 @@ function App() {
     setSearchValue(event.target.value)
   }
 
+  const isItemAdded = (id) => {
+    return cartItems.some(obj => Number(obj.parentId) === Number(id))
+  }
+
   const renderItems = () => {
     const filtredItems = items.filter((item) => item.title.toLowerCase().includes(searchValue));
     return (isLoading ? [...Array(8)] : filtredItems).map((item, title) => (
@@ -78,7 +91,7 @@ function App() {
         key={title}
         onFavorite={(obj) => onAddToFavorite(obj)}
         onPlus={(obj) => onAddToCart(obj)}
-        added={cartItems.some(obj => Number(obj.id) === Number(item.id))}
+        itemAdded={isItemAdded}
         loading={isLoading}
         {...item}
       />
@@ -90,7 +103,7 @@ function App() {
       <div className="wrapper">
         <div className="container">
           {cartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} setCartItems={setCartItems} cartItems={cartItems} />}
-          <Header onClickCart={() => setCartOpened(true)} />
+          {<Header onClickCart={() => setCartOpened(true)} cartItems={cartItems} />}
 
           <Routes>
             <Route
@@ -134,6 +147,7 @@ function App() {
                               key={index}
                               favorited={true}
                               onFavorite={onAddToFavorite}
+                              itemAdded={isItemAdded}
                               {...item}
                             />
                           ))
@@ -143,6 +157,46 @@ function App() {
                       <img src="/img/favorite/sadSmile.png" alt="SadSmile" />
                       <h1>Улюблених товарів нема</h1>
                       <p>Ви нічого не добавили в улюблене</p>
+                      <Link to='/'>
+                        <button className="drawer__btn"><img src="/img/main/arrow.svg" alt="Arrow" />Повернутися назад</button>
+                      </Link>
+                    </div>
+                  }
+
+
+
+
+                </div>
+
+              }
+            ></Route>
+            <Route
+              path="/orders"
+              exact
+              element={
+                <div className="content">
+                  {orders.length > 0 ?
+                    <div>
+                      <div className="content__block">
+                        <h1>Мої покупки</h1>
+                      </div>
+
+                      <div className="card">
+                        {
+                          (isLoading ? [...Array(8)] : orders).map((item, index) => (
+                            <Card
+                              key={index}
+                              itemAdded={isItemAdded}
+                              loading={isLoading}
+                              {...item}
+                            />
+                          ))
+                        }
+                      </div>
+                    </div> : <div className="content__block-favoriteOFF">
+                      <img src="/img/orders/smileOrder.png" alt="SadSmile" />
+                      <h1>У вас немає замовлень</h1>
+                      <p>Оформіть замовлення</p>
                       <Link to='/'>
                         <button className="drawer__btn"><img src="/img/main/arrow.svg" alt="Arrow" />Повернутися назад</button>
                       </Link>

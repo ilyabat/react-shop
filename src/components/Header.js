@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
-
+import React from 'react';
 
 function Header(props) {
+
+
+    const totalPrice = props.cartItems.reduce((sum, obj) => obj.price + sum, 0)
 
     return (
         <header className="header">
@@ -15,14 +18,15 @@ function Header(props) {
                 </div>
             </Link>
             <ul className="header__right">
-                <li onClick={props.onClickCart}><img src="/img/header/cart.svg" alt="Cart" /><span>1205грн.</span></li>
+                <li onClick={props.onClickCart}><img src="/img/header/cart.svg" alt="Cart" /><span>{totalPrice}грн.</span></li>
                 <li>
                     <Link to={"/favorites"}>
                         <img src="/img/header/favorite.svg" alt="Favorite" />
                     </Link>
                 </li>
-                <li><img src="/img/header/user.svg" alt="User" /></li>
-
+                <Link to={"/orders"}>
+                    <li><img src="/img/header/user.svg" alt="User" /></li>
+                </Link>
             </ul>
         </header>
     );

@@ -1,18 +1,16 @@
 import React from "react";
 import ContentLoader from "react-content-loader"
 
-function Card({ id, title, imageUrl, price, onFavorite, onPlus, favorited = false, added = false, loading = false }) {
+function Card({ id, title, imageUrl, price, onFavorite, onPlus, favorited = false, added = false, loading = false, itemAdded }) {
 
-    const [isAdded, setIsAdded] = React.useState(added)
-
+    const obj = { id, parentId: id, title, imageUrl, price };
     const [isFavorite, setIsFavorite] = React.useState(favorited)
 
     const onClickPlus = () => {
-        onPlus({ id, title, imageUrl, price })
-        setIsAdded(!isAdded)
+        onPlus(obj)
     }
     const onClickFavorite = () => {
-        onFavorite({ id, title, imageUrl, price })
+        onFavorite(obj)
         setIsFavorite(!isFavorite)
     }
 
@@ -37,7 +35,7 @@ function Card({ id, title, imageUrl, price, onFavorite, onPlus, favorited = fals
                     </ContentLoader> :
                     <>
                         <div className="card__favorite" onClick={onFavorite}>
-                            <img onClick={onClickFavorite} src={isFavorite ? "/img/main/like.svg" : "/img/main/unlike.svg"} alt="UnLike" />
+                            {onFavorite && <img onClick={onClickFavorite} src={isFavorite ? "/img/main/like.svg" : "/img/main/unlike.svg"} alt="UnLike" />}
                         </div>
                         <img className="card__img" src={imageUrl} alt="Sneakers" />
                         <p className="card__text">{title}</p>
@@ -46,9 +44,7 @@ function Card({ id, title, imageUrl, price, onFavorite, onPlus, favorited = fals
                                 <p>Ціна:</p>
                                 <b>{price}грн</b>
                             </div>
-
-                            <img onClick={onClickPlus} className="card__plus" src={isAdded ? "/img/main/plusOn.svg" : "/img/main/plus.svg"} alt="Plus" />
-
+                            {onPlus && <img onClick={onClickPlus} className="card__plus" src={itemAdded(id) ? "/img/main/plusOn.svg" : "/img/main/plus.svg"} alt="Plus" />}
                         </div>
                     </>
             }

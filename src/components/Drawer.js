@@ -10,20 +10,18 @@ function Drawer({ onClose, onRemove, items = [], setCartItems, cartItems }) {
 
     const [isOrder, setIsOrder] = React.useState(false)
     const [isLoading, setIsLoading] = React.useState(false)
+    const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0)
 
     const onClickOrder = async () => {
         setIsLoading(true)
 
         const { data } = await axios.post('https://6327800c5731f3db995a67d9.mockapi.io/orders', { items: cartItems })
-
-
         setOrderId(data.id)
-
         setIsOrder(true)
         setCartItems([]);
         for (let index = 0; index < cartItems.length; index++) {
             const item = cartItems[index];
-            axios.delete('https://6327800c5731f3db995a67d9.mockapi.io/cart/' + item.id)
+            axios.delete(`https://6327800c5731f3db995a67d9.mockapi.io/cart/${item.id}`)
             delay(1000)
         }
         setIsLoading(false)
@@ -58,12 +56,12 @@ function Drawer({ onClose, onRemove, items = [], setCartItems, cartItems }) {
                                     <li className="drawer__li">
                                         <span>Ціна:</span>
                                         <div></div>
-                                        <b>21 999грн.</b>
+                                        <b>{totalPrice}грн.</b>
                                     </li>
                                     <li className="drawer__li">
                                         <span>Податок 5%: </span>
                                         <div></div>
-                                        <b> 1000грн.</b>
+                                        <b>{Math.round(totalPrice / 100 * 5)}грн.</b>
                                     </li>
                                 </ul>
                                 <button disabled={isLoading} onClick={onClickOrder} className="greenBtn">Оформити замовлення <img src="/img/main/arrow.svg" alt="Arrow" /></button>
