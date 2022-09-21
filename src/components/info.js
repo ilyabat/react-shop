@@ -7,7 +7,7 @@ const Info = ({ image, title, description, onClose }) => {
                 <img src={image} alt="Box" />
                 <h2>{title}</h2>
                 <p>{description}</p>
-                <button onClick={onClose} className="drawer__btn"><img src="/img/main/arrow.svg" alt="Arrow" />Повернутися назад</button>
+                <button onClick={onClose} className="drawer__btn"><img src="img/main/arrow.svg" alt="Arrow" />Повернутися назад</button>
             </div>
         </div>
     );
