@@ -8,7 +8,7 @@ function Header(props) {
 
     return (
         <header className="header">
-            <Link to="">
+            <Link to={process.env.PUBLIC_URL + '/'}>
                 <div className="header__left">
                     <img src="img/header/logo.png" alt="Logo" />
                     <div className="header__info">
@@ -20,11 +20,11 @@ function Header(props) {
             <ul className="header__right">
                 <li onClick={props.onClickCart}><img src="img/header/cart.svg" alt="Cart" /><span>{totalPrice}грн.</span></li>
                 <li>
-                    <Link to={"favorites"}>
+                    <Link to={process.env.PUBLIC_URL + '/favorites'}>
                         <img src="img/header/favorite.svg" alt="Favorite" />
                     </Link>
                 </li>
-                <Link to={"orders"}>
+                <Link to={process.env.PUBLIC_URL + '/orders'}>
                     <li><img src="img/header/user.svg" alt="User" /></li>
                 </Link>
             </ul>

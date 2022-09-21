@@ -107,7 +107,7 @@ function App() {
 
           <Routes>
             <Route
-              path=""
+              path={process.env.PUBLIC_URL + '/'}
               exact
               element={
                 <div className="content">
@@ -130,7 +130,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="favorites"
+              path={process.env.PUBLIC_URL + '/favorites'}
               exact
               element={
                 <div className="content">
@@ -157,21 +157,16 @@ function App() {
                       <img src="img/favorite/sadSmile.png" alt="SadSmile" />
                       <h1>Улюблених товарів нема</h1>
                       <p>Ви нічого не добавили в улюблене</p>
-                      <Link to=''>
+                      <Link to={process.env.PUBLIC_URL + '/'}>
                         <button className="drawer__btn"><img src="img/arrow.svg" alt="Arrow" />Повернутися назад</button>
                       </Link>
                     </div>
                   }
-
-
-
-
                 </div>
-
               }
             ></Route>
             <Route
-              path="orders"
+              path={process.env.PUBLIC_URL + '/orders'}
               exact
               element={
                 <div className="content">
@@ -197,7 +192,7 @@ function App() {
                       <img src="img/orders/smileOrder.png" alt="SadSmile" />
                       <h1>У вас немає замовлень</h1>
                       <p>Оформіть замовлення</p>
-                      <Link to='/'>
+                      <Link to={process.env.PUBLIC_URL + '/'}>
                         <button className="drawer__btn"><img src="img/arrow.svg" alt="Arrow" />Повернутися назад</button>
                       </Link>
                     </div>
